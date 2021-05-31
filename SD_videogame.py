@@ -44,15 +44,15 @@ grenade_thrown = False
 #///////////////////////////////////////////////////////
 #-------------LOAD MUSIC AND SOUNDS----------------------
 
-pygame.mixer.music.load('audio/music2.mp3')
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.load('audio/Soul_Drifters_music.wav')
+pygame.mixer.music.set_volume(0.2)
 pygame.mixer.music.play(-1, 0.0, 5000)#loop over, delay and duration of fade
-jump_fx = pygame.mixer.Sound('audio/jump.wav')
+jump_fx = pygame.mixer.Sound('audio/jump.mp3')
 jump_fx.set_volume(0.5)
-shot_fx = pygame.mixer.Sound('audio/shot.wav')
+shot_fx = pygame.mixer.Sound('audio/laser2.mp3')
 shot_fx.set_volume(0.5)
 grenade_fx = pygame.mixer.Sound('audio/grenade.wav')
-grenade_fx.set_volume(0.5)
+grenade_fx.set_volume(0.9)
 
 
 #-------------LOAD IMAGES AND DEFINE COLORS------------------------------
