@@ -33,6 +33,7 @@ level = 1
 start_game = False
 start_intro = False
 
+
 #define player action variables
 moving_left = False
 moving_right = False
@@ -53,6 +54,8 @@ shot_fx = pygame.mixer.Sound('audio/laser2.mp3')
 shot_fx.set_volume(0.5)
 grenade_fx = pygame.mixer.Sound('audio/grenade.wav')
 grenade_fx.set_volume(0.9)
+circuit_fx = pygame.mixer.Sound('audio/elec_circuit.mp3')
+circuit_fx.set_volume(0.9)
 
 
 #-------------LOAD IMAGES AND DEFINE COLORS------------------------------
@@ -348,6 +351,8 @@ class Soldier (pygame.sprite.Sprite):
 			self.speed = 0
 			self.alive = False
 			self.update_action(3)
+			
+	
 
 	def draw(self):
 		screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
@@ -575,7 +580,7 @@ class Grenade(pygame.sprite.Sprite):
 				if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 2 and \
 				   abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 2:
 				   enemy.health -= 50
-				   print(enemy.health)
+				  
 
 #--------------GRENADE EXPLOSIONS---------------------
 	
@@ -765,7 +770,7 @@ while run:
 
 					world = World()
 					player , health_bar = world.process_data(world_data)				
-		else:
+		else:	
 			screen_scroll = 0
 			if death_fade.fade():
 				if restart_button.draw(screen):
