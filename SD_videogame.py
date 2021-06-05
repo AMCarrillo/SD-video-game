@@ -68,8 +68,6 @@ restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
 #background
 city_background = pygame.image.load('img/background/city_background.jpg').convert_alpha()
 city2_img = pygame.image.load('img/background/city2.png').convert_alpha()
-#city1_img = pygame.image.load('img/background/city1.png').convert_alpha()
-#mountain_img = pygame.image.load('img/background/mountain.png').convert_alpha()
 sky_night = pygame.image.load('img/background/sky_night.png').convert_alpha()
 #store tiles in a list
 #store tiles in a list
@@ -114,9 +112,7 @@ def draw_bg():
 	width = city_background.get_width()
 	for x in range(10):
 		screen.blit(sky_night, ((x * width) - bg_scroll * 0.5, 0))
-		#screen.blit(mountain_img, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - mountain_img.get_height() - 300))
 		screen.blit(city_background, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - city_background.get_height() - 200))
-		#screen.blit(city1_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - city1_img.get_height() - 50))
 		screen.blit(city2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - city2_img.get_height() + 100))
 
 #function to reset level
