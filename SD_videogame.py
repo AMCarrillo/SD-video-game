@@ -120,6 +120,7 @@ def draw_bg():
 		screen.blit(city2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - city2_img.get_height() + 100))
 
 #function to reset level
+
 def reset_level():
 	enemy_group.empty()
 	bullet_group.empty()
