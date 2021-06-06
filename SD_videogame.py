@@ -1,4 +1,5 @@
 import pygame
+import pygame.freetype 
 from pygame import mixer
 import os
 import random
@@ -103,7 +104,8 @@ BLACK = (0, 0, 0)
 
 
 #define font
-font = pygame.font.SysFont('Futura', 30)
+#font = pygame.font.SysFont('Futura', 30)
+font =pygame.font.Font('Sprint2.ttf', 14)
 
 def draw_text(text, font, text_color, x, y):
 	img = font.render(text, True, text_color)
@@ -351,7 +353,6 @@ class Soldier (pygame.sprite.Sprite):
 			self.speed = 0
 			self.alive = False
 			self.update_action(3)
-			
 	
 
 	def draw(self):
