@@ -93,8 +93,11 @@ item_boxes = {
 
 #Define colors
 BG = (0, 13, 26)
-RED = (139, 0 , 0)
-GREEN = (0, 255, 0)
+DARK_RED = (89, 0 , 0)
+RED = (255, 37, 0)
+ORANGE = (255, 116, 0)
+YELLOW = (255, 193, 0)
+GREEN = (0, 277, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -482,8 +485,14 @@ class HealthBar():
 		#calculate health ratio
 		ratio = self.health / self.max_health
 		pygame.draw.rect(screen, BLACK, (self.x -2, self.y -2, 154, 24))
-		pygame.draw.rect(screen, RED, (self.x, self.y, 150, 20))
-		pygame.draw.rect(screen, GREEN, (self.x, self.y, 150 * ratio, 20))
+		pygame.draw.rect(screen, DARK_RED, (self.x, self.y, 150, 20))
+		if self.health > 66:
+			pygame.draw.rect(screen, YELLOW, (self.x, self.y, 150 * ratio, 20))
+		elif self.health < 66 and self.health > 33:
+			pygame.draw.rect(screen, ORANGE, (self.x, self.y, 150 * ratio, 20))
+		else:
+			pygame.draw.rect(screen, RED, (self.x, self.y, 150 * ratio, 20))
+			
 
 #-----------------BULLET----------------------------------
 
@@ -634,7 +643,7 @@ class ScreenFade():
 
 #create screen fades
 intro_fade = ScreenFade(1, BLACK, 4)
-death_fade = ScreenFade(2 , RED, 4)
+death_fade = ScreenFade(2 , DARK_RED, 8)
 
 #////////////////////////////////////////////////////////////////////
 start_button = button.Button(SCREEN_WIDTH // 2 - 130, SCREEN_HEIGHT // 2 - 150, start_img, 1)
