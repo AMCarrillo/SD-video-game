@@ -1,5 +1,4 @@
 import pygame
-import pygame.freetype 
 from pygame import mixer
 import os
 import random
@@ -58,7 +57,6 @@ grenade_fx.set_volume(0.9)
 circuit_fx = pygame.mixer.Sound('audio/elec_circuit.mp3')
 circuit_fx.set_volume(0.9)
 
-
 #-------------LOAD IMAGES AND DEFINE COLORS------------------------------
 
 #load images
@@ -66,11 +64,12 @@ circuit_fx.set_volume(0.9)
 start_img = pygame.image.load('img/start_btn.png').convert_alpha()
 exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
 restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
+menu_img = pygame.image.load('img/menu_SD.png').convert_alpha()
 #background
 city_background = pygame.image.load('img/background/city_background.jpg').convert_alpha()
 city2_img = pygame.image.load('img/background/city2.png').convert_alpha()
 sky_night = pygame.image.load('img/background/sky_night.png').convert_alpha()
-#store tiles in a list
+
 #store tiles in a list
 img_list = []
 for x in range(TILE_TYPES):
@@ -102,7 +101,6 @@ GREEN = (0, 277, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-
 #define font
 #font = pygame.font.SysFont('Futura', 30)
 font =pygame.font.Font('Sprint2.ttf', 14)
@@ -110,7 +108,6 @@ font =pygame.font.Font('Sprint2.ttf', 14)
 def draw_text(text, font, text_color, x, y):
 	img = font.render(text, True, text_color)
 	screen.blit(img, (x, y))
-
 
 def draw_bg():
 	screen.fill(BG)
@@ -138,7 +135,6 @@ def reset_level():
 		r = [-1] * COLS
 		data.append(r)
 	return data
-
 
 #////////////////////////////////////////////////////////////////
 #--------------SOLDIERS--------------------------
@@ -353,11 +349,9 @@ class Soldier (pygame.sprite.Sprite):
 			self.speed = 0
 			self.alive = False
 			self.update_action(3)
-	
 
 	def draw(self):
-		screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
-	
+		screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)	
 
 #-----------------WORLD--------------------------
 class World():
@@ -404,14 +398,12 @@ class World():
 
 		return player, health_bar
 
-
 	def draw(self):
 		for tile in self.obstacle_list:
 			tile[1][0] += screen_scroll
 			screen.blit(tile[0], tile[1])
 
 #--------------------WATER----------------------
-
 class Water(pygame.sprite.Sprite):
 	def __init__(self, img, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -421,8 +413,8 @@ class Water(pygame.sprite.Sprite):
 
 	def update(self):
 		self.rect.x += screen_scroll
-#------------------EXIT-------------------
 
+#------------------EXIT-------------------
 class Exit(pygame.sprite.Sprite):
 	def __init__(self, img, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -432,8 +424,8 @@ class Exit(pygame.sprite.Sprite):
 
 	def update(self):
 		self.rect.x += screen_scroll
+		
 #------------------DECORATION-------------------
-
 class Decoration(pygame.sprite.Sprite):
 	def __init__(self, img, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -472,7 +464,6 @@ class ItemBox(pygame.sprite.Sprite):
 			self.kill()
 
 #----------------HEALTHBAR---------------------
-
 class HealthBar():
 	def __init__(self, x, y, health, max_health):
 		self.x = x
@@ -494,9 +485,7 @@ class HealthBar():
 		else:
 			pygame.draw.rect(screen, RED, (self.x, self.y, 150 * ratio, 20))
 			
-
 #-----------------BULLET----------------------------------
-
 class Bullet(pygame.sprite.Sprite):
 	def __init__(self, x, y, direction):
 		pygame.sprite.Sprite.__init__(self)
@@ -531,7 +520,6 @@ class Bullet(pygame.sprite.Sprite):
 					self.kill()
 
 #-----------------GRENADE-------------------------------
-
 class Grenade(pygame.sprite.Sprite):
 	def __init__(self, x, y, direction):
 		pygame.sprite.Sprite.__init__(self)
@@ -587,10 +575,8 @@ class Grenade(pygame.sprite.Sprite):
 				if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 2 and \
 				   abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 2:
 				   enemy.health -= 50
-				  
 
 #--------------GRENADE EXPLOSIONS---------------------
-	
 class Explosion(pygame.sprite.Sprite):
 	def __init__(self, x, y, scale):
 		pygame.sprite.Sprite.__init__(self)
@@ -620,6 +606,7 @@ class Explosion(pygame.sprite.Sprite):
 			else:
 				self.image = self.images[self.frame_index]
 
+#--------------------SCREENFADE----------------------
 class ScreenFade():
 	def __init__(self, direction, colour, speed):
 		self.direction = direction
@@ -647,8 +634,8 @@ intro_fade = ScreenFade(1, BLACK, 4)
 death_fade = ScreenFade(2 , DARK_RED, 8)
 
 #////////////////////////////////////////////////////////////////////
-start_button = button.Button(SCREEN_WIDTH // 2 - 130, SCREEN_HEIGHT // 2 - 150, start_img, 1)
-exit_button = button.Button(SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 50, exit_img, 1)
+start_button = button.Button(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT // 2 + 30, start_img, 1)
+exit_button = button.Button(SCREEN_WIDTH // 2 - 65, SCREEN_HEIGHT // 2 + 110, exit_img, 1)
 restart_button = button.Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, restart_img, 2)
 
 #create sprite groups
@@ -660,7 +647,6 @@ item_box_group = pygame.sprite.Group()
 decoration_group = pygame.sprite.Group()
 water_group = pygame.sprite.Group()
 exit_group = pygame.sprite.Group()
-
 
 #create empty tile list
 world_data = []
@@ -685,7 +671,7 @@ while run:
 
 	if start_game == False:
 		#draw menu
-		screen.fill(BG)
+		screen.blit(menu_img, (0, 0))
 		#add buttons
 		if start_button.draw(screen):
 			start_game = True
