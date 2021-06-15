@@ -97,7 +97,7 @@ DARK_RED = (89, 0 , 0)
 RED = (255, 37, 0)
 ORANGE = (255, 116, 0)
 YELLOW = (255, 193, 0)
-GREEN = (0, 277, 0)
+GREEN = (34, 143, 66)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -113,9 +113,9 @@ def draw_bg():
 	screen.fill(BG)
 	width = city_background.get_width()
 	for x in range(10):
-		screen.blit(sky_night, ((x * width) - bg_scroll * 0.5, 0))
+		screen.blit(sky_night, ((x * width) - bg_scroll * 0.4, 0))
 		screen.blit(city_background, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - city_background.get_height() - 200))
-		screen.blit(city2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - city2_img.get_height() + 100))
+		screen.blit(city2_img, ((x * width) - bg_scroll * 0.9, SCREEN_HEIGHT - city2_img.get_height() + 100))
 
 #function to reset level
 
@@ -479,9 +479,9 @@ class HealthBar():
 		pygame.draw.rect(screen, BLACK, (self.x -2, self.y -2, 154, 24))
 		pygame.draw.rect(screen, DARK_RED, (self.x, self.y, 150, 20))
 		if self.health > 66:
-			pygame.draw.rect(screen, YELLOW, (self.x, self.y, 150 * ratio, 20))
+			pygame.draw.rect(screen, GREEN, (self.x, self.y, 150 * ratio, 20))
 		elif self.health < 66 and self.health > 33:
-			pygame.draw.rect(screen, ORANGE, (self.x, self.y, 150 * ratio, 20))
+			pygame.draw.rect(screen, YELLOW, (self.x, self.y, 150 * ratio, 20))
 		else:
 			pygame.draw.rect(screen, RED, (self.x, self.y, 150 * ratio, 20))
 			
