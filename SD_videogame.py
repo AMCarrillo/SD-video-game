@@ -64,6 +64,7 @@ circuit_fx.set_volume(0.9)
 start_img = pygame.image.load('img/start_btn.png').convert_alpha()
 exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
 restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
+death_img = pygame.image.load('img/death_SD.png').convert_alpha()
 menu_img = pygame.image.load('img/menu_SD.png').convert_alpha()
 #background
 city_background = pygame.image.load('img/background/city_background.jpg').convert_alpha()
@@ -100,6 +101,7 @@ YELLOW = (255, 193, 0)
 GREEN = (34, 143, 66)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+DARK_BLUE = (0, 6, 23)
 
 #define font
 #font = pygame.font.SysFont('Futura', 30)
@@ -624,6 +626,8 @@ class ScreenFade():
 			pygame.draw.rect(screen, self.colour, (0, SCREEN_HEIGHT // 2 + self.fade_counter, SCREEN_WIDTH, SCREEN_HEIGHT))
 		if self.direction == 2:#vertical screen fade down
 			pygame.draw.rect(screen, self.colour, (0, 0, SCREEN_WIDTH, 0 + self.fade_counter))
+		if self.direction == 3:#vertical screen fade down
+			pygame.draw.rect(screen, self.colour, (0, 0, SCREEN_WIDTH, 0 + self.fade_counter))
 		if self.fade_counter >= SCREEN_WIDTH:
 			fade_complete = True
 		
@@ -631,7 +635,7 @@ class ScreenFade():
 
 #create screen fades
 intro_fade = ScreenFade(1, BLACK, 4)
-death_fade = ScreenFade(2 , DARK_RED, 8)
+death_fade = ScreenFade(2 , DARK_BLUE, 8)
 
 #////////////////////////////////////////////////////////////////////
 start_button = button.Button(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT // 2 + 30, start_img, 1)
@@ -766,6 +770,7 @@ while run:
 		else:	
 			screen_scroll = 0
 			if death_fade.fade():
+				screen.blit(death_img, (0,0))
 				if restart_button.draw(screen):
 					death_fade.fade_counter = 0
 					start_intro = True
