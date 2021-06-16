@@ -7,12 +7,13 @@ import button
 
 mixer.init()
 pygame.init()
-
+pygame.font.init()
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Shooter')
 
 #set framerate
@@ -28,6 +29,7 @@ TILE_SIZE = SCREEN_HEIGHT // ROWS
 TILE_TYPES = 21
 MAX_LEVELS = 3
 screen_scroll = 0
+run_once = 0
 bg_scroll = 0
 level = 1
 start_game = False
@@ -110,6 +112,27 @@ font =pygame.font.Font('Sprint2.ttf', 14)
 def draw_text(text, font, text_color, x, y):
 	img = font.render(text, True, text_color)
 	screen.blit(img, (x, y))
+
+def run_once(f):
+    def wrapper(*args, **kwargs):
+        if not wrapper.has_run:
+            wrapper.has_run = True
+            return f(*args, **kwargs)
+    wrapper.has_run = False
+    return wrapper
+
+@run_once #decorator to handle keeping track of how many times it runs
+def display_text_animation(string):
+	text = ''
+	for i in range(len(string)):
+		DISPLAYSURF.blit(death_img,(0,0))
+		text += string[i]
+		text_surface = font.render(text, True, BLACK)
+		text_rect = text_surface.get_rect()
+		text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 180)
+		DISPLAYSURF.blit(text_surface, text_rect)
+		pygame.display.update()
+		pygame.time.wait(120)
 
 def draw_bg():
 	screen.fill(BG)
@@ -640,7 +663,7 @@ death_fade = ScreenFade(2 , DARK_BLUE, 8)
 #////////////////////////////////////////////////////////////////////
 start_button = button.Button(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT // 2 + 30, start_img, 1)
 exit_button = button.Button(SCREEN_WIDTH // 2 - 65, SCREEN_HEIGHT // 2 + 110, exit_img, 1)
-restart_button = button.Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, restart_img, 2)
+restart_button = button.Button(SCREEN_WIDTH // 2 - 125, SCREEN_HEIGHT // 2 + 150, restart_img, 2)
 
 #create sprite groups
 enemy_group = pygame.sprite.Group()
@@ -770,21 +793,23 @@ while run:
 		else:	
 			screen_scroll = 0
 			if death_fade.fade():
-				screen.blit(death_img, (0,0))
-				if restart_button.draw(screen):
-					death_fade.fade_counter = 0
-					start_intro = True
-					bg_scroll = 0
-					world_data = reset_level()
-					#load in level data and create world
-					with open(f'level{level}_data.csv', newline='') as csvfile:
-						reader = csv.reader(csvfile, delimiter=',')
-						for x, row in enumerate(reader):
-							for y, tile in enumerate(row):
-								world_data[x][y] = int(tile)
+					display_text_animation("NO! STAY WITH ME, 359!")
+					pygame.time.wait(300)
+					screen.blit(death_img, (0,0))
+					if restart_button.draw(screen):
+						death_fade.fade_counter = 0
+						start_intro = True
+						bg_scroll = 0
+						world_data = reset_level()
+						#load in level data and create world
+						with open(f'level{level}_data.csv', newline='') as csvfile:
+							reader = csv.reader(csvfile, delimiter=',')
+							for x, row in enumerate(reader):
+								for y, tile in enumerate(row):
+									world_data[x][y] = int(tile)
 
-					world = World()
-					player , health_bar = world.process_data(world_data)		
+						world = World()
+						player , health_bar = world.process_data(world_data)		
 
 	for event in pygame.event.get():
 		#quit game
