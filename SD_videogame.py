@@ -14,15 +14,15 @@ SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Shooter')
+pygame.display.set_caption('Soul Drifters - Ratana Satis')
 
 #set framerate
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 45
 
 #define game variables
-GRAVITY = 0.75
-SCROLL_THRESH = 200
+GRAVITY = 0.80
+SCROLL_THRESH = 400
 ROWS = 16
 COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
@@ -127,9 +127,9 @@ def display_text_animation(string):
 	for i in range(len(string)):
 		DISPLAYSURF.blit(death_img,(0,0))
 		text += string[i]
-		text_surface = font.render(text, True, BLACK)
+		text_surface = font.render(text, True, WHITE)
 		text_rect = text_surface.get_rect()
-		text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 180)
+		text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 185)
 		DISPLAYSURF.blit(text_surface, text_rect)
 		pygame.display.update()
 		pygame.time.wait(120)
@@ -462,7 +462,6 @@ class Decoration(pygame.sprite.Sprite):
 		self.rect.x += screen_scroll
 
 #-------------------ITEM_BOX--------------------------
-
 class ItemBox(pygame.sprite.Sprite):
 	def __init__(self, item_type, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -599,7 +598,7 @@ class Grenade(pygame.sprite.Sprite):
 			for enemy in enemy_group:
 				if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 2 and \
 				   abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 2:
-				   enemy.health -= 50
+				   enemy.health -= 100
 
 #--------------GRENADE EXPLOSIONS---------------------
 class Explosion(pygame.sprite.Sprite):
