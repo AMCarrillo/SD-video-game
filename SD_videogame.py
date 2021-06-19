@@ -18,7 +18,7 @@ pygame.display.set_caption('Soul Drifters - Ratana Satis')
 
 #set framerate
 clock = pygame.time.Clock()
-FPS = 45
+FPS = 55
 
 #define game variables
 GRAVITY = 0.80
@@ -138,9 +138,9 @@ def draw_bg():
 	screen.fill(BG)
 	width = city_background.get_width()
 	for x in range(10):
-		screen.blit(sky_night, ((x * width) - bg_scroll * 0.4, 0))
-		screen.blit(city_background, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - city_background.get_height() - 200))
-		screen.blit(city2_img, ((x * width) - bg_scroll * 0.9, SCREEN_HEIGHT - city2_img.get_height() + 100))
+		screen.blit(sky_night, ((x * width) - bg_scroll * 0.3, 0))
+		screen.blit(city_background, ((x * width) - bg_scroll * 0.5, SCREEN_HEIGHT - city_background.get_height() - 200))
+		screen.blit(city2_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - city2_img.get_height() + 100))
 
 #function to reset level
 
@@ -534,7 +534,7 @@ class Bullet(pygame.sprite.Sprite):
 		#check collision with characters
 		if pygame.sprite.spritecollide(player, bullet_group, False):
 			if player.alive:
-				player.health -= 5
+				player.health -= 15
 				self.kill()#delete de bullet
 		for enemy in enemy_group:	
 			if pygame.sprite.spritecollide(enemy, bullet_group, False):
@@ -598,7 +598,7 @@ class Grenade(pygame.sprite.Sprite):
 			for enemy in enemy_group:
 				if abs(self.rect.centerx - enemy.rect.centerx) < TILE_SIZE * 2 and \
 				   abs(self.rect.centery - enemy.rect.centery) < TILE_SIZE * 2:
-				   enemy.health -= 100
+				   enemy.health -= 50
 
 #--------------GRENADE EXPLOSIONS---------------------
 class Explosion(pygame.sprite.Sprite):
